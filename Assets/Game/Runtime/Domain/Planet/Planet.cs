@@ -34,7 +34,7 @@ namespace Game.Runtime.Domain.Planet
             Opened?.Invoke();
         }
 
-        public void UpLevel()
+        public void LevelUp()
         {
             Level++;
             LevelUpped?.Invoke();
