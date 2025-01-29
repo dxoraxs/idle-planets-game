@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game.Runtime.Infrastructure.Panels;
 using TMPro;
 using UnityEngine;
+using EditorAttributes;
 using UnityEngine.UI;
 using Game.Runtime.Presentation.GamePanel.Planet;
 
@@ -13,7 +14,7 @@ namespace Game.Runtime.Presentation.GamePanel
         [SerializeField] private List<PlanetView> _planetViews = new();
 
 #if UNITY_EDITOR
-        [ContextMenu("Find Planet Views")]
+        [Button]
         private void FindPlanetViews()
         {
             _planetViews.Clear();
