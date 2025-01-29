@@ -1,9 +1,9 @@
-﻿namespace Game.Runtime.Application.PlanetService
+﻿namespace Game.Runtime.Application.Planet
 {
     public struct PlanetInfo
     {
         public string Name;
-        public int Population;
+        public uint Population;
         public uint Income;
         public uint Level;
         public uint UpgradeCost;

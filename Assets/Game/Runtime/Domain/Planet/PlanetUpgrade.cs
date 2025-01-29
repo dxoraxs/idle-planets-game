@@ -6,6 +6,12 @@ namespace Game.Runtime.Domain.Planet
     public class PlanetUpgrade
     {
         public readonly uint Income;
-        public readonly uint UpgradeCost;
+        public readonly uint Cost;
+
+        public PlanetUpgrade(uint income, uint cost)
+        {
+            Income = income;
+            Cost = cost;
+        }
     }
 }

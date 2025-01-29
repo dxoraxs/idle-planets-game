@@ -1,4 +1,5 @@
 using Game.Runtime.Application.Configs;
+using Game.Runtime.Application.Planet;
 using Game.Runtime.Infrastructure.Configs;
 using Game.Runtime.Infrastructure.Factories;
 using Game.Runtime.Infrastructure.Repository;
@@ -19,6 +20,9 @@ namespace Game.Runtime.Application.DI
         private SpritesConfigService _spritesConfigService;
 
         [SerializeField]
+        private PlanetConfigService _planetConfigService;
+
+        [SerializeField]
         private UnityCallbacksService _callbacksServicePrefab;
 
         protected override void Configure(IContainerBuilder builder)
@@ -27,6 +31,7 @@ namespace Game.Runtime.Application.DI
             builder.Register<RepositoryService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(InstantiateUnityCallbacksService());
             builder.RegisterEntryPoint<LocalTimeService>().As<ITimeService>().AsSelf();
+            builder.RegisterEntryPoint<PlanetService>().As<ITimeService>().AsSelf();
 
             ConfigureConfigs(builder);
         }
@@ -43,6 +48,7 @@ namespace Game.Runtime.Application.DI
         {
             builder.RegisterInstance<IConfigsService>(_localConfigsService);
             builder.RegisterInstance<ISpritesConfigService>(_spritesConfigService);
+            builder.RegisterInstance<IPlanetConfigService>(_planetConfigService);
         }
     }
 }

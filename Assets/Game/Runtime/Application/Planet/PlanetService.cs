@@ -3,16 +3,16 @@ using Game.Runtime.Domain.GameRules;
 using Game.Runtime.Domain.Planet;
 using Game.Runtime.Domain.PlayerResources;
 
-namespace Game.Runtime.Application.PlanetService
+namespace Game.Runtime.Application.Planet
 {
     public class PlanetService
     {
         private readonly GameRules _gameRules;
         private readonly PlayerResources _playerResources;
-            
-        public void BuyPlanet(Planet planet)
+        
+        public void BuyPlanet(Domain.Planet.Planet planet)
         {
-            var requiredResources = planet.GetCurrentUpgrade().UpgradeCost;
+            var requiredResources = planet.GetCurrentUpgrade().Cost;
             if (_gameRules.CheckWinCondition(requiredResources))
             {
                 var resource = new Resource(Constants.Resources.SoftCurrency, requiredResources);
@@ -22,9 +22,9 @@ namespace Game.Runtime.Application.PlanetService
             }
         }
 
-        public void UpgradePlanet(Planet planet)
+        public void UpgradePlanet(Domain.Planet.Planet planet)
         {
-            var requiredResources = planet.GetCurrentUpgrade().UpgradeCost;
+            var requiredResources = planet.GetCurrentUpgrade().Cost;
             if (_gameRules.CheckWinCondition(requiredResources))
             {
                 var resource = new Resource(Constants.Resources.SoftCurrency, requiredResources);
@@ -34,7 +34,7 @@ namespace Game.Runtime.Application.PlanetService
             }
         }
 
-        public void CollectIncome(Planet planet)
+        public void CollectIncome(Domain.Planet.Planet planet)
         {
             var income = planet.IncomeValue;
             planet.CollectIncome();
@@ -42,7 +42,7 @@ namespace Game.Runtime.Application.PlanetService
             _playerResources.Add(resource);
         }
         
-        public PlanetInfo GetPlanetInfo(Planet planet)
+        public PlanetInfo GetPlanetInfo(Domain.Planet.Planet planet)
         {
             var currentUpgrade = planet.GetCurrentUpgrade();
             return new PlanetInfo
@@ -51,7 +51,7 @@ namespace Game.Runtime.Application.PlanetService
                 Population = planet.Population,
                 Income = currentUpgrade.Income,
                 Level = planet.Level,
-                UpgradeCost = currentUpgrade.UpgradeCost
+                UpgradeCost = currentUpgrade.Cost
             };
         }
     }
