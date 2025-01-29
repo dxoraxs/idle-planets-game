@@ -352,6 +352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5364966909751367753}
+  - component: {fileID: 1510019928666773244}
   m_Layer: 5
   m_Name: PlanetPanel
   m_TagString: Untagged
@@ -380,6 +381,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1510019928666773244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860805340701978150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9e7e0ab39a9b054b93a8c68bd6da12e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _panel: {fileID: 860805340701978150}
+  _header: {fileID: 9209584536786063595}
+  _closeButton: {fileID: 4860622370961867766}
+  _avatar: {fileID: 328163744762118583}
+  _populationText: {fileID: 2821577711935674451}
+  _levelText: {fileID: 7106206117611142679}
+  _incomeText: {fileID: 51265710796085748}
+  _upgradePriceText: {fileID: 2019871224800427396}
+  _upgradeButton: {fileID: 3885529525276896717}
 --- !u!1 &965717003820527526
 GameObject:
   m_ObjectHideFlags: 0
