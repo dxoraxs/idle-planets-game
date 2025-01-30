@@ -20,9 +20,6 @@ namespace Game.Runtime.Application.DI
         private SpritesConfigService _spritesConfigService;
 
         [SerializeField]
-        private PlanetConfigService _planetConfigService;
-
-        [SerializeField]
         private UnityCallbacksService _callbacksServicePrefab;
 
         protected override void Configure(IContainerBuilder builder)
@@ -48,7 +45,6 @@ namespace Game.Runtime.Application.DI
         {
             builder.RegisterInstance<IConfigsService>(_localConfigsService);
             builder.RegisterInstance<ISpritesConfigService>(_spritesConfigService);
-            builder.RegisterInstance<IPlanetConfigService>(_planetConfigService);
         }
     }
 }

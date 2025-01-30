@@ -8,15 +8,17 @@ namespace Game.Runtime.Domain.Planet
     {
         private readonly Dictionary<string, Planet> _planets = new();
 
+        public IReadOnlyDictionary<string, Planet> AllPlanets => _planets;
+        
         public void LoadFromConfig(IReadOnlyList<PlanetConfig> planetConfigs)
         {
             foreach (var planetConfig in planetConfigs)
             {
                 var planetUpgrade = planetConfig.UpgradeConfigs.Select(planetUpgrade =>
                     new PlanetUpgrade(planetUpgrade.Income, planetUpgrade.Cost)).ToArray();
-                var newPlanet = new Planet(planetConfig.Name, planetConfig.ConstOpen, planetConfig.TimerPerTick,
-                    planetConfig.Population, planetUpgrade);
-                _planets.Add(planetConfig.Name, newPlanet);
+                var newPlanet = new Planet(planetConfig.Id, planetConfig.Name, planetConfig.ConstOpen,
+                    planetConfig.TimerPerTick, planetConfig.Population, planetUpgrade);
+                _planets.Add(planetConfig.Id, newPlanet);
             }
         }
 

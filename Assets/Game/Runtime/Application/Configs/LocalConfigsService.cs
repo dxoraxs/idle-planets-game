@@ -15,6 +15,9 @@ namespace Game.Runtime.Application.Configs
         [SerializeField]
         private ResourcesConfigsSO _resourcesConfigsSO;
 
+        [SerializeField]
+        private PlanetConfigService _planetConfigService;
+
         private readonly Dictionary<Type, object> _cachedConfigs = new();
 
         public UniTask Initialize()
@@ -42,6 +45,7 @@ namespace Game.Runtime.Application.Configs
             _cachedConfigs.Clear();
 
             AddToCache(_resourcesConfigsSO.ResourcesConfigs);
+            AddToCache(_planetConfigService);
         }
 
         private void AddToCache<T>(T config)

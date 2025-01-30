@@ -14,17 +14,19 @@ namespace Game.Runtime.Domain.Planet
 
         public event Action IncomeAppeared;
 
+        public readonly string Id;
         public readonly string Name;
         public readonly uint CostOpen;
         public readonly float TimerPerTick;
         public readonly uint Population;
         public ulong IncomeValue { get; private set; }
         public uint Level { get; private set; }
-        private bool _isOpen;
+        public bool IsOpen { get; private set; }
         private readonly PlanetUpgrade[] _upgrades;
         
-        public Planet(string name, uint costOpen, float timerPerTick, uint population, PlanetUpgrade[] upgrades)
+        public Planet(string id, string name, uint costOpen, float timerPerTick, uint population, PlanetUpgrade[] upgrades)
         {
+            Id = id;
             Name = name;
             CostOpen = costOpen;
             TimerPerTick = timerPerTick;
@@ -39,7 +41,7 @@ namespace Game.Runtime.Domain.Planet
 
         public void SetOpen()
         {
-            _isOpen = true;
+            IsOpen = true;
             Opened?.Invoke();
         }
 
@@ -63,13 +65,13 @@ namespace Game.Runtime.Domain.Planet
 
         public PlanetSnapshot GetSnapshot()
         {
-            return new PlanetSnapshot { Name = Name, Level = Level, IsOpen = _isOpen, Income = IncomeValue };
+            return new PlanetSnapshot { Level = Level, IsOpen = IsOpen, Income = IncomeValue };
         }
 
         public void RestoreFromSnapshot(PlanetSnapshot snapshot)
         {
             Level = snapshot.Level;
-            _isOpen = snapshot.IsOpen;
+            IsOpen = snapshot.IsOpen;
             IncomeValue = snapshot.Income;
         }
     }

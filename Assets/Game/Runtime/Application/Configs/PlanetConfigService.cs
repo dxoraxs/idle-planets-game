@@ -17,7 +17,20 @@ namespace Game.Runtime.Application.Configs
         {
             return UniTask.CompletedTask;
         }
+        
+        public PlanetConfig GetPlanetConfig(string id)
+        {
+            foreach (var config in _planetItems)
+            {
+                if (config.Id == id)
+                {
+                    return config;
+                }
+            }
 
+            throw new ArgumentException($"Config for planet id {id} is not exists");
+        }
+        
         public IReadOnlyList<PlanetConfig> Planets()
         {
             return _planetItems;
