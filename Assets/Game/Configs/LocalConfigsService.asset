@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LocalConfigsService
   m_EditorClassIdentifier: 
   _resourcesConfigsSO: {fileID: 11400000, guid: 38ee649ac1b0144209ea2d35185ac666, type: 2}
-  _planetConfigService: {fileID: 11400000, guid: 44fed983850cf434299b0f3ed181abad, type: 2}
+  _planetConfigSO: {fileID: 11400000, guid: fdb709087e90f3a4587de63bbecc0c6b, type: 2}

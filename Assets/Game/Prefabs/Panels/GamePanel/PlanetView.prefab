@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 4069365071620109237}
   - component: {fileID: 8193891107021228721}
   - component: {fileID: 648301223005266422}
+  - component: {fileID: 104016865719175092}
   m_Layer: 5
   m_Name: Coin
   m_TagString: Untagged
@@ -195,6 +196,50 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &104016865719175092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320550912344372757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 648301223005266422}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &383599552409175847
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,13 +509,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6248366f499246fda82d51e10d9d18b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planetIcon: {fileID: 606508972301849034}
-  _planetButton: {fileID: 98091007331450613}
-  _lockVisual:
+  PlanetIcon: {fileID: 606508972301849034}
+  PlanetButton: {fileID: 98091007331450613}
+  LockVisual:
     <MainBody>k__BackingField: {fileID: 6539271359257448856}
     <CostText>k__BackingField: {fileID: 5444377921757551026}
-  _openVisual:
+  OpenVisual:
     <MainBody>k__BackingField: {fileID: 8495026970891777428}
+    <CoinButton>k__BackingField: {fileID: 104016865719175092}
     <CoinImage>k__BackingField: {fileID: 320550912344372757}
     <ProgressBar>k__BackingField: {fileID: 5564512366540979095}
     <ProgressBarFillImage>k__BackingField: {fileID: 6948507870913343312}

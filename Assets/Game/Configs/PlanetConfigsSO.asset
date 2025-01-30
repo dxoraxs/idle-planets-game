@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 728af26a6021490c865b50ed80447a61, type: 3}
+  m_Name: PlanetConfigsSO
+  m_EditorClassIdentifier: 
+  PlanetsConfigs:
+    _planetItems:
+    - <Id>k__BackingField: planet1
+      <Name>k__BackingField: Mercury
+      <IconName>k__BackingField: Planet1
+      <LockIconName>k__BackingField: Planet1_Locked
+      <ConstOpen>k__BackingField: 50
+      <TimerPerTick>k__BackingField: 1
+      <Population>k__BackingField: 10
+      <UpgradeConfigs>k__BackingField:
+      - <Income>k__BackingField: 1
+        <Cost>k__BackingField: 1000
+      - <Income>k__BackingField: 2
+        <Cost>k__BackingField: 2000
+      - <Income>k__BackingField: 3
+        <Cost>k__BackingField: 3000
+    - <Id>k__BackingField: planet2
+      <Name>k__BackingField: Venus
+      <IconName>k__BackingField: Planet2
+      <LockIconName>k__BackingField: Planet2_Locked
+      <ConstOpen>k__BackingField: 100
+      <TimerPerTick>k__BackingField: 1
+      <Population>k__BackingField: 20
+      <UpgradeConfigs>k__BackingField: 
+      - <Income>k__BackingField: 4
+        <Cost>k__BackingField: 1000
+      - <Income>k__BackingField: 5
+        <Cost>k__BackingField: 2000
+      - <Income>k__BackingField: 6
+        <Cost>k__BackingField: 3000
+    - <Id>k__BackingField: planet3
+      <Name>k__BackingField: Earth
+      <IconName>k__BackingField: Planet3
+      <LockIconName>k__BackingField: Planet3_Locked
+      <ConstOpen>k__BackingField: 300
+      <TimerPerTick>k__BackingField: 1
+      <Population>k__BackingField: 30
+      <UpgradeConfigs>k__BackingField: 
+      - <Income>k__BackingField: 7
+        <Cost>k__BackingField: 1000
+      - <Income>k__BackingField: 8
+        <Cost>k__BackingField: 2000
+      - <Income>k__BackingField: 9
+        <Cost>k__BackingField: 3000
+    - <Id>k__BackingField: planet4
+      <Name>k__BackingField: Mars
+      <IconName>k__BackingField: Planet4
+      <LockIconName>k__BackingField: Planet4_Locked
+      <ConstOpen>k__BackingField: 600
+      <TimerPerTick>k__BackingField: 1
+      <Population>k__BackingField: 40
+      <UpgradeConfigs>k__BackingField: 
+      - <Income>k__BackingField: 10
+        <Cost>k__BackingField: 1000
+      - <Income>k__BackingField: 12
+        <Cost>k__BackingField: 2000
+      - <Income>k__BackingField: 13
+        <Cost>k__BackingField: 3000
+    - <Id>k__BackingField: planet5
+      <Name>k__BackingField: Jupiter
+      <IconName>k__BackingField: Planet5
+      <LockIconName>k__BackingField: Planet5_Locked
+      <ConstOpen>k__BackingField: 1000
+      <TimerPerTick>k__BackingField: 1
+      <Population>k__BackingField: 50
+      <UpgradeConfigs>k__BackingField:
+      - <Income>k__BackingField: 14
+        <Cost>k__BackingField: 1000
+      - <Income>k__BackingField: 15
+        <Cost>k__BackingField: 2000
+      - <Income>k__BackingField: 16
+        <Cost>k__BackingField: 3000
+    - <Id>k__BackingField: planet6
+      <Name>k__BackingField: Saturn
+      <IconName>k__BackingField: Planet6
+      <LockIconName>k__BackingField: Planet6_Locked
+      <ConstOpen>k__BackingField: 1500
+      <TimerPerTick>k__BackingField: 1
+      <Population>k__BackingField: 60
+      <UpgradeConfigs>k__BackingField: 
+      - <Income>k__BackingField: 17
+        <Cost>k__BackingField: 1000
+      - <Income>k__BackingField: 18
+        <Cost>k__BackingField: 2000
+      - <Income>k__BackingField: 19
+        <Cost>k__BackingField: 3000
+    - <Id>k__BackingField: planet7
+      <Name>k__BackingField: Uranus
+      <IconName>k__BackingField: Planet7
+      <LockIconName>k__BackingField: Planet7_Locked
+      <ConstOpen>k__BackingField: 2000
+      <TimerPerTick>k__BackingField: 1
+      <Population>k__BackingField: 70
+      <UpgradeConfigs>k__BackingField:
+      - <Income>k__BackingField: 20
+        <Cost>k__BackingField: 1000
+      - <Income>k__BackingField: 21
+        <Cost>k__BackingField: 2000
+      - <Income>k__BackingField: 22
+        <Cost>k__BackingField: 3000

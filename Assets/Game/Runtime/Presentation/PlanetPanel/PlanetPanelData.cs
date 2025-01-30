@@ -2,7 +2,7 @@
 
 namespace Game.Runtime.Presentation.PlanetPanel
 {
-    public readonly struct PlanetView
+    public readonly struct PlanetPanelData
     {
         public readonly string Name;
         public readonly Sprite Avatar;
@@ -12,7 +12,7 @@ namespace Game.Runtime.Presentation.PlanetPanel
         public readonly uint Income;
         public readonly uint UpgradePrice;
 
-        public PlanetView(string name, Sprite avatar, uint population, uint level,
+        public PlanetPanelData(string name, Sprite avatar, uint population, uint level,
             uint maxLevel, uint income, uint upgradePrice)
         {
             Name = name;

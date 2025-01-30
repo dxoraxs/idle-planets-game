@@ -16,7 +16,7 @@ namespace Game.Runtime.Application.Configs
         private ResourcesConfigsSO _resourcesConfigsSO;
 
         [SerializeField]
-        private PlanetConfigService _planetConfigService;
+        private PlanetConfigsSO _planetConfigSO;
 
         private readonly Dictionary<Type, object> _cachedConfigs = new();
 
@@ -45,7 +45,7 @@ namespace Game.Runtime.Application.Configs
             _cachedConfigs.Clear();
 
             AddToCache(_resourcesConfigsSO.ResourcesConfigs);
-            AddToCache(_planetConfigService);
+            AddToCache(_planetConfigSO.PlanetsConfigs);
         }
 
         private void AddToCache<T>(T config)

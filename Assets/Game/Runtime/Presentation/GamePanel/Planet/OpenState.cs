@@ -9,6 +9,7 @@ namespace Game.Runtime.Presentation.GamePanel.Planet
     public class OpenState
     {
         [field: SerializeField] public GameObject MainBody { get; private set; }
+        [field: SerializeField] public Button CoinButton { get; private set; }
         [field: SerializeField] public GameObject CoinImage { get; private set; }
         [field: SerializeField] public GameObject ProgressBar { get; private set; }
         [field: SerializeField] public Image ProgressBarFillImage { get; private set; }

@@ -9,7 +9,7 @@ namespace Game.Runtime.Domain.Planet
         private readonly Dictionary<string, Planet> _planets = new();
 
         public IReadOnlyDictionary<string, Planet> AllPlanets => _planets;
-        
+
         public void LoadFromConfig(IReadOnlyList<PlanetConfig> planetConfigs)
         {
             foreach (var planetConfig in planetConfigs)
@@ -24,7 +24,10 @@ namespace Game.Runtime.Domain.Planet
 
         public AllPlanetSnapshots GetSnapshot()
         {
-            var result = new AllPlanetSnapshots();
+            var result = new AllPlanetSnapshots()
+            {
+                Planets = new Dictionary<string, PlanetSnapshot>()
+            };
             foreach (var planet in _planets)
             {
                 result.Planets.Add(planet.Key, planet.Value.GetSnapshot());

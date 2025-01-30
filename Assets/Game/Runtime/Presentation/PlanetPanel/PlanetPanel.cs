@@ -1,4 +1,3 @@
-using System;
 using Game.Runtime.Infrastructure.Panels;
 using TMPro;
 using UnityEngine;

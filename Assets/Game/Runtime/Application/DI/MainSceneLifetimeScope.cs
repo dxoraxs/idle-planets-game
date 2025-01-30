@@ -1,4 +1,5 @@
 using Game.Runtime.Application.Game;
+using Game.Runtime.Application.Planet;
 using Game.Runtime.Application.Resources;
 using Game.Runtime.Application.SaveGame;
 using Game.Runtime.Infrastructure.Factories;
@@ -28,6 +29,8 @@ namespace Game.Runtime.Application.DI
         private void ConfigureDomainControllers(IContainerBuilder builder)
         {
             builder.Register<PlayerResourcesController>(Lifetime.Scoped).AsSelf().As<ISaveable>();
+            builder.Register<PlanetService>(Lifetime.Scoped).AsSelf().As<ISaveable>();
+            //builder.RegisterEntryPoint<PlanetService>().AsSelf();
         }
         
         private IPanelsService InstantiatePanelsService()

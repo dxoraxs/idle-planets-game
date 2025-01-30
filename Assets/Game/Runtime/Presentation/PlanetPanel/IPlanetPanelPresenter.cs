@@ -6,7 +6,7 @@ namespace Game.Runtime.Presentation.PlanetPanel
     {
         event Action<string> OnPlanetSelected;
         event Action<bool> OnChangeResource;
-        PlanetView GetPlanetById(string id);
+        PlanetPanelData GetPlanetById(string id);
         void OnClickUpgradeButton();
         void OnClickCloseButton();
     }

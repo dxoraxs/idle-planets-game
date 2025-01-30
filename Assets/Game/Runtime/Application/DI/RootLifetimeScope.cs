@@ -28,7 +28,6 @@ namespace Game.Runtime.Application.DI
             builder.Register<RepositoryService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(InstantiateUnityCallbacksService());
             builder.RegisterEntryPoint<LocalTimeService>().As<ITimeService>().AsSelf();
-            builder.RegisterEntryPoint<PlanetService>().As<ITimeService>().AsSelf();
 
             ConfigureConfigs(builder);
         }
