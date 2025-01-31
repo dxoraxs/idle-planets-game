@@ -1,13 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Game.Runtime.Infrastructure.Panels;
-using TMPro;
 using UnityEngine;
 using EditorAttributes;
-using UnityEngine.UI;
 using Game.Runtime.Presentation.GamePanel.Planet;
-using UnityEditor.Presets;
 
 namespace Game.Runtime.Presentation.GamePanel
 {
@@ -66,7 +61,7 @@ namespace Game.Runtime.Presentation.GamePanel
 
             if (planet.IsOpen)
             {
-                if (planet.ProgressBarValue >= 1)
+                if (planet.IsIncomeReady)
                 {
                     view.OpenVisual.CoinImage.SetActive(true);
                     view.OpenVisual.ProgressBar.SetActive(false);

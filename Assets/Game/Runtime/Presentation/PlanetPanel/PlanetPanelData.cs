@@ -11,9 +11,10 @@ namespace Game.Runtime.Presentation.PlanetPanel
         public readonly uint MaxLevel;
         public readonly uint Income;
         public readonly uint UpgradePrice;
+        public readonly bool IsHaveLevel;
 
         public PlanetPanelData(string name, Sprite avatar, uint population, uint level,
-            uint maxLevel, uint income, uint upgradePrice)
+            uint maxLevel, uint income, uint upgradePrice, bool isHaveLevel)
         {
             Name = name;
             Avatar = avatar;
@@ -22,6 +23,7 @@ namespace Game.Runtime.Presentation.PlanetPanel
             MaxLevel = maxLevel;
             Income = income;
             UpgradePrice = upgradePrice;
+            IsHaveLevel = isHaveLevel;
         }
     }
 }

@@ -6,7 +6,7 @@ using Game.Runtime.Domain.Planet;
 using Game.Runtime.Domain.PlayerResources;
 using Game.Runtime.Infrastructure.Configs;
 using Game.Runtime.Infrastructure.Repository;
-using Game.Runtime.Presentation.GamePanel.Planet;
+using Game.Runtime.Infrastructure.Time;
 using UnityEngine.Scripting;
 
 namespace Game.Runtime.Application.Planet
@@ -17,18 +17,20 @@ namespace Game.Runtime.Application.Planet
         private readonly PlayerResourcesController _playerResourcesController;
         private readonly IRepositoryService _repositoryService;
         private readonly IConfigsService _configsService;
+        private readonly ITimeService _timeService;
 
         public Planets Planets { get; private set; }
         public event Action<string> PlanetUpgraded;
 
         [Preserve]
         public PlanetService(IRepositoryService repositoryService, IConfigsService configsService, GameRules gameRules,
-            PlayerResourcesController playerResourcesController)
+            PlayerResourcesController playerResourcesController, ITimeService timeService)
         {
             _repositoryService = repositoryService;
             _configsService = configsService;
             _gameRules = gameRules;
             _playerResourcesController = playerResourcesController;
+            _timeService = timeService;
         }
 
         public void Initialize()
@@ -36,10 +38,23 @@ namespace Game.Runtime.Application.Planet
             Planets = new Planets();
             var planets = _configsService.Get<PlanetsConfigs>().Planets();
             Planets.LoadFromConfig(planets);
+
+            foreach (var planet in Planets.AllPlanets)
+            {
+                planet.Value.Opened += () => StartTimer(planet.Key);
+                planet.Value.IncomeCollected += () => StartTimer(planet.Key);
+            }
             
             if (_repositoryService.TryLoad<AllPlanetSnapshots>(out var snapshot))
             {
                 Planets.RestoreFromSnapshot(snapshot);
+                foreach (var planet in Planets.AllPlanets)
+                {
+                    if (planet.Value.IsTimerEnable)
+                    {
+                        StartTimer(planet.Key);
+                    }
+                }
             }
         }
 
@@ -55,17 +70,20 @@ namespace Game.Runtime.Application.Planet
             }
         }
 
-        private void BuyPlanet(string id)
+        public void CollectIncome(string id)
         {
             var planet = Planets.AllPlanets[id];
-            var requiredResources = planet.CostOpen;
-            if (_gameRules.CheckPayCondition(requiredResources))
-            {
-                var resource = new Resource(Constants.Resources.SoftCurrency, requiredResources);
-                _playerResourcesController.PlayerResources.Remove(resource);
-                planet.SetOpen();
-                //_planetRepository.SavePlanets();
-            }
+            planet.CollectIncome();
+            var planetConfig = _configsService.Get<PlanetsConfigs>().GetPlanetConfig(id);
+            var currentUpgradeConfig = planetConfig.UpgradeConfigs[planet.Level];
+            var income = currentUpgradeConfig.Income;
+            var resource = new Resource(Constants.Resources.SoftCurrency, income);
+            _playerResourcesController.PlayerResources.Add(resource);
+        }
+
+        public void Save()
+        {
+            _repositoryService.Save(Planets.GetSnapshot());
         }
 
         public void UpgradePlanet(string id)
@@ -75,25 +93,34 @@ namespace Game.Runtime.Application.Planet
             if (_gameRules.CheckPayCondition(requiredResources))
             {
                 var resource = new Resource(Constants.Resources.SoftCurrency, requiredResources);
-                _playerResourcesController.PlayerResources.Remove(resource);
                 planet.LevelUp();
-                //_planetRepository.SavePlanets();
+                _playerResourcesController.PlayerResources.Remove(resource);
             }
         }
 
-        public void CollectIncome(string id)
+        private void StartTimer(string id)
         {
             var planet = Planets.AllPlanets[id];
-            planet.CollectIncome();
-            var planetConfig = _configsService.Get<PlanetsConfigs>().GetPlanetConfig(id);
-            var income = planetConfig.UpgradeConfigs[planet.Level].Income;
-            var resource = new Resource(Constants.Resources.SoftCurrency, income);
-            _playerResourcesController.PlayerResources.Add(resource);
+            
+            if (_timeService.AddAndGetTimer(id, planet.IncomeTimer, out var timer))
+            {
+                planet.StartTimer();
+                timer.Ended += planet.GenerateIncome;
+                timer.Ticked += planet.SetIncomeTimer;
+            }
         }
-        
-        public void Save()
+
+        private void BuyPlanet(string id)
         {
-            _repositoryService.Save(Planets.GetSnapshot());
+            var planet = Planets.AllPlanets[id];
+            var requiredResources = _configsService.Get<PlanetsConfigs>().GetPlanetConfig(id).CostOpen;
+            
+            if (_gameRules.CheckPayCondition(requiredResources))
+            {
+                var resource = new Resource(Constants.Resources.SoftCurrency, requiredResources);
+                _playerResourcesController.PlayerResources.Remove(resource);
+                planet.SetOpen();
+            }
         }
     }
 }

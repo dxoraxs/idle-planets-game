@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Game.Runtime.Application.Configs;
 using Game.Runtime.Application.Planet;
 using Game.Runtime.Domain.Planet;
 using Game.Runtime.Infrastructure.Configs;
@@ -31,6 +30,7 @@ namespace Game.Runtime.Application.Game
                 planet.Value.LevelUpped += () => UpdateView(planet.Key);
                 planet.Value.IncomeCollected += () => UpdateView(planet.Key);
                 planet.Value.IncomeAppeared += () => UpdateView(planet.Key);
+                planet.Value.TimerUpdated += () => UpdateView(planet.Key);
             }
         }
         
@@ -73,8 +73,9 @@ namespace Game.Runtime.Application.Game
             var avatarName = planet.IsOpen ? planetConfig.IconName : planetConfig.LockIconName;
             var avatar = _spritesConfigService.GetSprite(avatarName);
 
-            var planetViewData = new PlanetViewData(planet.Id, avatar, planet.IsOpen, planet.CostOpen,
-                0, "1 sec");
+            var planetTimerPerTick = (int)(planet.IncomeTimer * planet.TimerPerTick);
+            var planetViewData = new PlanetViewData(planet.Id, avatar, planet.IsOpen, planet.IsIncomeReady, planetConfig.CostOpen,
+                1 - planet.IncomeTimer, $"{planetTimerPerTick + 1} sec");
 
             return planetViewData;
         }

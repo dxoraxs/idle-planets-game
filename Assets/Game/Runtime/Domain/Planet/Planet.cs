@@ -14,25 +14,28 @@ namespace Game.Runtime.Domain.Planet
 
         public event Action IncomeAppeared;
 
+        public event Action TimerUpdated;
+
         public readonly string Id;
-        public readonly string Name;
-        public readonly uint CostOpen;
         public readonly float TimerPerTick;
-        public readonly uint Population;
-        public bool Income { get; private set; }
+        public bool IsIncomeReady { get; private set; }
         public uint Level { get; private set; }
         public bool IsOpen { get; private set; }
+        public bool IsTimerEnable { get; private set; }
         public float IncomeTimer { get; private set; }
         private readonly PlanetUpgrade[] _upgrades;
-        
-        public Planet(string id, string name, uint costOpen, float timerPerTick, uint population, PlanetUpgrade[] upgrades)
+
+        public Planet(string id, float timerPerTick, PlanetUpgrade[] upgrades)
         {
             Id = id;
-            Name = name;
-            CostOpen = costOpen;
-            TimerPerTick = timerPerTick;
-            Population = population;
+            IncomeTimer = TimerPerTick = timerPerTick;
             _upgrades = upgrades;
+        }
+
+        public void SetIncomeTimer(float timer)
+        {
+            IncomeTimer = timer;
+            TimerUpdated?.Invoke();
         }
 
         public PlanetUpgrade GetCurrentUpgrade()
@@ -52,29 +55,37 @@ namespace Game.Runtime.Domain.Planet
             LevelUpped?.Invoke();
         }
 
+        public void StartTimer()
+        {
+            IsTimerEnable = true;
+        }
+
         public void GenerateIncome()
         {
-            Income = true;
+            IncomeTimer = TimerPerTick;
+            IsTimerEnable = false;
+            IsIncomeReady = true;
             IncomeAppeared?.Invoke();
         }
 
         public void CollectIncome()
         {
-            Income = false;
+            IsIncomeReady = false;
             IncomeCollected?.Invoke();
         }
 
         public PlanetSnapshot GetSnapshot()
         {
-            return new PlanetSnapshot { Level = Level, IsOpen = IsOpen, Income = Income, IncomeTimer = IncomeTimer};
+            return new PlanetSnapshot(Level, IsOpen, IsIncomeReady, IsTimerEnable, IncomeTimer);
         }
 
         public void RestoreFromSnapshot(PlanetSnapshot snapshot)
         {
             Level = snapshot.Level;
             IsOpen = snapshot.IsOpen;
-            Income = snapshot.Income;
+            IsIncomeReady = snapshot.Income;
             IncomeTimer = snapshot.IncomeTimer;
+            IsTimerEnable = snapshot.IsTimerEnable;
         }
     }
 }

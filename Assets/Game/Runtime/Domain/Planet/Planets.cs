@@ -16,8 +16,7 @@ namespace Game.Runtime.Domain.Planet
             {
                 var planetUpgrade = planetConfig.UpgradeConfigs.Select(planetUpgrade =>
                     new PlanetUpgrade(planetUpgrade.Income, planetUpgrade.Cost)).ToArray();
-                var newPlanet = new Planet(planetConfig.Id, planetConfig.Name, planetConfig.ConstOpen,
-                    planetConfig.TimerPerTick, planetConfig.Population, planetUpgrade);
+                var newPlanet = new Planet(planetConfig.Id, planetConfig.TimerPerTick, planetUpgrade);
                 _planets.Add(planetConfig.Id, newPlanet);
             }
         }

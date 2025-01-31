@@ -32,7 +32,7 @@ namespace Game.Runtime.Application.Resources
             }
             else
             {
-                PlayerResources.Add(new Resource(Constants.Resources.SoftCurrency, 3000));
+                PlayerResources.Add(new Resource(Constants.Resources.SoftCurrency, 500));
             }
         }
     }

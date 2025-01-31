@@ -32,18 +32,18 @@ namespace Game.Runtime.Application.Game
             _playerResourcesController.PlayerResources.ResourceCountRemoved += OnResourceCountChanged;
         }
 
+        public void Dispose()
+        {
+            _playerResourcesController.PlayerResources.ResourceCountAdded -= OnResourceCountChanged;
+            _playerResourcesController.PlayerResources.ResourceCountRemoved -= OnResourceCountChanged;
+        }
+
         private void OnResourceCountChanged(string resourceId, ulong changedCount, ulong totalCount)
         {
             if (resourceId == Constants.Resources.SoftCurrency)
             {
                 OnSoftCurrencyChanged?.Invoke();
             }
-        }
-
-        public void Dispose()
-        {
-            _playerResourcesController.PlayerResources.ResourceCountAdded -= OnResourceCountChanged;
-            _playerResourcesController.PlayerResources.ResourceCountRemoved -= OnResourceCountChanged;
         }
     }
 }

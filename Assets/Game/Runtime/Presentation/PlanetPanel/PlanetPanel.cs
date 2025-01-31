@@ -8,6 +8,8 @@ namespace Game.Runtime.Presentation.PlanetPanel
     public class PlanetPanel : PanelBase
     {
         [SerializeField] private Image _avatar;
+        [SerializeField] private GameObject _costButtonView;
+        [SerializeField] private GameObject _levelEndView;
         [SerializeField] private TextMeshProUGUI _header;
         [SerializeField] private TextMeshProUGUI _populationText;
         [SerializeField] private TextMeshProUGUI _levelText;
@@ -55,6 +57,8 @@ namespace Game.Runtime.Presentation.PlanetPanel
         {
             var currentPlanet = _presenter.GetPlanetById(planetId);
             
+            _costButtonView.SetActive(currentPlanet.IsHaveLevel);
+            _levelEndView.SetActive(!currentPlanet.IsHaveLevel);
             _avatar.sprite = currentPlanet.Avatar;
             _header.text = string.Format(_defaultHeaderText, currentPlanet.Name);
             _populationText.text = string.Format(_defaultPopulationText, currentPlanet.Population);
