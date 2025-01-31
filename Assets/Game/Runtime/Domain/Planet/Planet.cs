@@ -19,9 +19,10 @@ namespace Game.Runtime.Domain.Planet
         public readonly uint CostOpen;
         public readonly float TimerPerTick;
         public readonly uint Population;
-        public ulong IncomeValue { get; private set; }
+        public bool Income { get; private set; }
         public uint Level { get; private set; }
         public bool IsOpen { get; private set; }
+        public float IncomeTimer { get; private set; }
         private readonly PlanetUpgrade[] _upgrades;
         
         public Planet(string id, string name, uint costOpen, float timerPerTick, uint population, PlanetUpgrade[] upgrades)
@@ -53,26 +54,27 @@ namespace Game.Runtime.Domain.Planet
 
         public void GenerateIncome()
         {
-            IncomeValue += GetCurrentUpgrade().Income;
+            Income = true;
             IncomeAppeared?.Invoke();
         }
 
         public void CollectIncome()
         {
-            IncomeValue = 0;
+            Income = false;
             IncomeCollected?.Invoke();
         }
 
         public PlanetSnapshot GetSnapshot()
         {
-            return new PlanetSnapshot { Level = Level, IsOpen = IsOpen, Income = IncomeValue };
+            return new PlanetSnapshot { Level = Level, IsOpen = IsOpen, Income = Income, IncomeTimer = IncomeTimer};
         }
 
         public void RestoreFromSnapshot(PlanetSnapshot snapshot)
         {
             Level = snapshot.Level;
             IsOpen = snapshot.IsOpen;
-            IncomeValue = snapshot.Income;
+            Income = snapshot.Income;
+            IncomeTimer = snapshot.IncomeTimer;
         }
     }
 }

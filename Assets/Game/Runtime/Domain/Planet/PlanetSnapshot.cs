@@ -8,6 +8,7 @@ namespace Game.Runtime.Domain.Planet
     {
         public uint Level;
         public bool IsOpen;
-        public ulong Income;
+        public bool Income;
+        public float IncomeTimer;
     }
 }

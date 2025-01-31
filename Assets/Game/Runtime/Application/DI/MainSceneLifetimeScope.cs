@@ -2,6 +2,7 @@ using Game.Runtime.Application.Game;
 using Game.Runtime.Application.Planet;
 using Game.Runtime.Application.Resources;
 using Game.Runtime.Application.SaveGame;
+using Game.Runtime.Domain.GameRules;
 using Game.Runtime.Infrastructure.Factories;
 using Game.Runtime.Infrastructure.Panels;
 using Game.Runtime.Infrastructure.Repository;
@@ -30,7 +31,7 @@ namespace Game.Runtime.Application.DI
         {
             builder.Register<PlayerResourcesController>(Lifetime.Scoped).AsSelf().As<ISaveable>();
             builder.Register<PlanetService>(Lifetime.Scoped).AsSelf().As<ISaveable>();
-            //builder.RegisterEntryPoint<PlanetService>().AsSelf();
+            builder.Register<GameRules>(Lifetime.Scoped).AsSelf();
         }
         
         private IPanelsService InstantiatePanelsService()

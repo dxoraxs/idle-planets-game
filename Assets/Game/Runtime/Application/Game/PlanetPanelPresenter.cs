@@ -27,18 +27,17 @@ namespace Game.Runtime.Application.Game
 
         [Preserve]
         public PlanetPanelPresenter(PlayerResourcesController playerResourcesController, PlanetService planetService,
-            IConfigsService configsService, ISpritesConfigService spritesConfigService, IPanelsService panelsService,
-            IGamePanelPresenter gamePanelPresenter)
+            IConfigsService configsService, ISpritesConfigService spritesConfigService, IPanelsService panelsService/*,
+            IGamePanelPresenter gamePanelPresenter*/)
         {
             _playerResourcesController = playerResourcesController;
             _configsService = configsService;
             _spritesConfigService = spritesConfigService;
             _planetService = planetService;
             _panelsService = panelsService;
+            //gamePanelPresenter.PlanetClicked += PlanetClicked;
 
-            _playerResourcesController.PlayerResources.ResourceCountAdded += OnResourceCountChanged;
-            _playerResourcesController.PlayerResources.ResourceCountRemoved += OnResourceCountChanged;
-            gamePanelPresenter.PlanetClicked += PlanetClicked;
+            _planetService.PlanetUpgraded += PlanetClicked;
             
             var panel = _panelsService.Open<PlanetPanel>();
             panel.SetPresenter(this);
@@ -49,11 +48,16 @@ namespace Game.Runtime.Application.Game
         {
             if (resourceId == Constants.Resources.SoftCurrency)
             {
-                var planet = _planetService.Planets.AllPlanets[_currentPlanetId];
-                var currentPlanetUpdate = planet.GetCurrentUpgrade();
-                var isHaveResource = totalCount >= currentPlanetUpdate.Cost;
-                OnChangeResource?.Invoke(isHaveResource);
+                CheckToButtonUpgradeInteractable(totalCount);
             }
+        }
+
+        private void CheckToButtonUpgradeInteractable(ulong totalCount)
+        {
+            var planet = _planetService.Planets.AllPlanets[_currentPlanetId];
+            var currentPlanetUpdate = planet.GetCurrentUpgrade();
+            var isHaveResource = totalCount >= currentPlanetUpdate.Cost;
+            OnChangeResource?.Invoke(isHaveResource);
         }
 
         public void Dispose()
@@ -73,8 +77,8 @@ namespace Game.Runtime.Application.Game
 
             var currentUpgrade = planet.GetCurrentUpgrade();
             
-            var planetView = new PlanetPanelData(planetConfig.Name, avatar, planetConfig.Population, planet.Level, 
-                (uint)planetConfig.UpgradeConfigs.Length + 1, currentUpgrade.Income, currentUpgrade.Cost);
+            var planetView = new PlanetPanelData(planetConfig.Name, avatar, planetConfig.Population, planet.Level + 1, 
+                (uint)planetConfig.UpgradeConfigs.Length, currentUpgrade.Income, currentUpgrade.Cost);
 
             return planetView;
         }
@@ -88,20 +92,34 @@ namespace Game.Runtime.Application.Game
             var costResource = new Resource(Constants.Resources.SoftCurrency, upgradeCost);
             _playerResourcesController.PlayerResources.Remove(costResource);
             planet.LevelUp();
+            
+            OnPlanetSelected?.Invoke(_currentPlanetId);
+            _planetService.UpgradePlanet(_currentPlanetId);
         }
 
         public void OnClickCloseButton()
         {
             _panelsService.Close<PlanetPanel>();
+            _currentPlanetId = string.Empty;
+
+            _playerResourcesController.PlayerResources.ResourceCountAdded -= OnResourceCountChanged;
+            _playerResourcesController.PlayerResources.ResourceCountRemoved -= OnResourceCountChanged;
         }
 
-        public void PlanetClicked(string id)
+        private void PlanetClicked(string id)
         {
-            var planet = _planetService.Planets.AllPlanets[_currentPlanetId];
+            var planet = _planetService.Planets.AllPlanets[id];
             if (planet.IsOpen)
             {
+                _currentPlanetId = id;
                 _panelsService.Open<PlanetPanel>();
-                OnPlanetSelected?.Invoke(id);
+                OnPlanetSelected?.Invoke(_currentPlanetId);
+
+                var totalCount = _playerResourcesController.PlayerResources.GetCount(Constants.Resources.SoftCurrency);
+                CheckToButtonUpgradeInteractable(totalCount);
+
+                _playerResourcesController.PlayerResources.ResourceCountAdded += OnResourceCountChanged;
+                _playerResourcesController.PlayerResources.ResourceCountRemoved += OnResourceCountChanged;
             }
         }
     }

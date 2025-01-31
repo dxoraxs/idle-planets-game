@@ -22,7 +22,7 @@ namespace Game.Runtime.Presentation.PlanetPanel
         private string _defaultIncomeText;
         private string _defaultUpgradePriceText;
 
-        private void Start()
+        private void Awake()
         {
             _defaultHeaderText = _header.text;
             _defaultPopulationText = _populationText.text;
@@ -33,7 +33,7 @@ namespace Game.Runtime.Presentation.PlanetPanel
 
         private void OnDestroy()
         {
-            _presenter.Dispose();
+            _presenter?.Dispose();
         }
 
         public void SetPresenter(IPlanetPanelPresenter presenter)

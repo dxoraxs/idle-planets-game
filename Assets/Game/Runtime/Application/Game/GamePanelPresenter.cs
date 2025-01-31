@@ -25,9 +25,6 @@ namespace Game.Runtime.Application.Game
             _configsService = configsService;
             _spritesConfigService = spritesConfigService;
             
-            PlanetClicked += planetService.OnPlanetClicked;
-            PlanetCoinClicked += planetService.CollectIncome;
-
             foreach (var planet in _planetService.Planets.AllPlanets)
             {
                 planet.Value.Opened += () => UpdateView(planet.Key);
@@ -44,11 +41,13 @@ namespace Game.Runtime.Application.Game
         public void OnClickPlanet(string id)
         {
             PlanetClicked?.Invoke(id);
+            _planetService.OnPlanetClicked(id);
         }
 
         public void OnClickPlanetCoin(string id)
         {
             PlanetCoinClicked?.Invoke(id);
+            _planetService.CollectIncome(id);
         }
 
         public IReadOnlyList<PlanetViewData> GetAllPlanets()
